@@ -151,6 +151,7 @@ class GameCharacter:
 # Basics No.8
 # subclasses, superclasses and inheritance
 
+
 # needs the above class
 class PlayerCharacter(GameCharacter):
 
