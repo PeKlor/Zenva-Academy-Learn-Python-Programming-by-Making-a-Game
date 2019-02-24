@@ -13,16 +13,16 @@
 # print("Now your new name is " + char_name + "123")
 
 
-
 # # Basics No.3
 # # Tuples
 # size = (100, 200)
 # width = size[0]
 # height = size[1]
-# new_size = size + (300,) + size
+# new_size = size + (300,) + size   # (100, 200, 300, 100, 200)
 # # del new_size
 # # print(new_size)
-# # print("The length of size is " + str(len(size)) + ", the max value is " + str(max(size)) + " and the min value is " + str(min(size)))
+# # print("The length of size is " + str(len(size)) + ", the max value is " + str(max(size))
+# + " and the min value is " + str(min(size)))
 # does_contain = 100 in size   # true
 # # print(does_contain)
 #
@@ -36,7 +36,6 @@
 # starting_positions = {'p_0': 50, 'p_1': 100, 'p_2': 150}
 # print(starting_positions['p_0'])   # 50
 # print(starting_positions.keys())   # ['p_0', 'p_1', 'p_2']
-
 
 
 # # Basics No.4
@@ -89,15 +88,16 @@
 # print(x_pos)
 
 
-
 # # Basics No.6
 # # functions
 # x_pos = 0
 # e_x_pos = 4
 #
+#
 # def move():
-#     global x_pos # retrieves that global variable
+#     global x_pos   # retrieves that global variable
 #     x_pos += 1
+#
 #
 # move()
 #
@@ -117,8 +117,6 @@
 # did_collide = check_for_collision()
 # print(x_pos)
 # print(did_collide)
-
-
 
 
 # # Basics No.7
@@ -148,7 +146,6 @@ class GameCharacter:
 # character_0.move(50, 100)
 # print(character_0.x_pos)   # prints 150
 # print(character_0.y_pos)   # prints 200
-
 
 
 # Basics No.8
