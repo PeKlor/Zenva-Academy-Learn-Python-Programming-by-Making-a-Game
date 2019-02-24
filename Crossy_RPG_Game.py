@@ -15,8 +15,6 @@ clock = pygame.time.Clock()
 TICK_RATE = 60
 is_game_over = False
 
-# sdoinsgnosnfosf
-
 # create the window of the specified size in white to display the game
 game_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
