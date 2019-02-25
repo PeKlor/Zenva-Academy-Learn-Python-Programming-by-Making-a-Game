@@ -45,6 +45,22 @@ class Game:
             clock.tick(self.TICK_RATE)
 
 
+class GameObject:
+
+    def __init__(self, image_path, x, y, width, height):
+        # load the player image from the file directory
+        object_image = pygame.image.load(image_path)
+        # scale the image up
+        self.image = pygame.transform.scale(object_image, (width, height))
+
+        self.x_pos = x
+        self.y_pos = y
+
+    def draw(self, background):
+        # "blit" means draw; we draw the background with the image, the left corner of it being (x, y)
+        background.blit(self.image, (self.x_pos, self.y_pos))
+
+
 pygame.init()
 
 new_game = Game(SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -55,11 +71,6 @@ new_game.run_game_loop()
 pygame.quit()
 quit()
 
-
-# # load the player image from the file directory
-# player_image = pygame.image.load('player.png')
-# # scale the image up
-# player_image = pygame.transform.scale(player_image, (50, 50))
 
 # draw a rectangle on top of the game screen canvas (x, y, width, height)
 # pygame.draw.rect(game_screen, BLACK_COLOR, [350, 350, 100, 100])
