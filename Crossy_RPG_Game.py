@@ -42,15 +42,15 @@ class Game:
                     is_game_over = True
                 # detect when key is pressed down
                 elif event.type == pygame.KEYDOWN:
-                    # move up if the up key is pressed
+                    # move up if the Up-Key is pressed
                     if event.key == pygame.K_UP:
                         direction = 1
-                    # move down if the down key is pressed
+                    # move down if the Down-Key is pressed
                     elif event.key == pygame.K_DOWN:
                         direction = -1
                 # detect when key is released
                 elif event.type == pygame.KEYUP:
-                    # stop movement when key no longer pressed
+                    # stop movement when a key is no longer pressed
                     if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                         direction = 0
                 print(event)
@@ -78,7 +78,6 @@ class GameObject:
 
         self.x_pos = x
         self.y_pos = y
-
         self.width = width
         self.height = height
 
