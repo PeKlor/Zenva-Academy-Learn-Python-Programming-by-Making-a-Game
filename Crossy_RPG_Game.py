@@ -7,6 +7,8 @@ SCREEN_HEIGHT = 800
 WHITE_COLOR = (255, 255, 255)
 BLACK_COLOR = (0, 0, 0)
 clock = pygame.time.Clock()
+pygame.font.init()
+font = pygame.font.SysFont('comicsans', 75)
 
 
 class Game:
@@ -14,7 +16,7 @@ class Game:
     # FPS with the typical rate of 60
     TICK_RATE = 60
 
-    def __init__(self, title, width, height):
+    def __init__(self, image_path, title, width, height):
         self.title = title
         self.width = width
         self.height = height
@@ -25,8 +27,13 @@ class Game:
         self.game_screen.fill(WHITE_COLOR)
         pygame.display.set_caption(title)
 
+        # load and set the background image for the scene
+        background_image = pygame.image.load(image_path)
+        self.image = pygame.transform.scale(background_image, (width, height))
+
     def run_game_loop(self):
         is_game_over = False
+        did_win = False
         direction = 0
 
         player_character = PlayerCharacter('player.png', 375, 700, 50, 50)
@@ -59,6 +66,8 @@ class Game:
 
             # redraw the screen to be a blank white window
             self.game_screen.fill(WHITE_COLOR)
+            # draw the image onto the background
+            self.game_screen.blit(self.image, (0, 0))
 
             # draw the treasure
             treasure.draw(self.game_screen)
@@ -73,15 +82,36 @@ class Game:
             enemy_0.draw(self.game_screen)
 
             # end the game if there is a collision between enemy or treasure
+            # close the game if we lose, restart the game loop if we win
             if player_character.detect_collision(enemy_0):
                 is_game_over = True
+                did_win = False
+                text = font.render('You lose! :(', True, BLACK_COLOR)
+                self.game_screen.blit(text, (275, 350))
+                pygame.display.update()
+                clock.tick(1)
+                break
             elif player_character.detect_collision(treasure):
                 is_game_over = True
+                did_win = True
+                text = font.render('You win! :)', True, BLACK_COLOR)
+                self.game_screen.blit(text, (275, 350))
+                pygame.display.update()
+                clock.tick(1)
+                break
 
             # update all game graphics
             pygame.display.update()
             # tick the clock to update everything within the game
             clock.tick(self.TICK_RATE)
+
+        # restart the game loop if we won
+        # break out of game loop and quit if we lose
+        if did_win:
+            # recursion
+            self.run_game_loop()
+        else:
+            return
 
 
 class GameObject:
@@ -161,7 +191,7 @@ class NonPlayerCharacter(GameObject):
 
 pygame.init()
 
-new_game = Game(SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
+new_game = Game('background.png', SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
 new_game.run_game_loop()
 
 # Load the player image from the file directory
