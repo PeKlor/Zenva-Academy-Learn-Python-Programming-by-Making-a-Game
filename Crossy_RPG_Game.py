@@ -31,13 +31,22 @@ class Game:
         background_image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(background_image, (width, height))
 
-    def run_game_loop(self):
+    def run_game_loop(self, level_speed):
         is_game_over = False
         did_win = False
         direction = 0
 
         player_character = PlayerCharacter('player.png', 375, 700, 50, 50)
-        enemy_0 = NonPlayerCharacter('enemy.png', 20, 400, 50, 50)
+        enemy_0 = NonPlayerCharacter('enemy.png', 20, 600, 50, 50)
+        # the speed is increased as we advance in difficulty
+        enemy_0.SPEED *= level_speed
+
+        enemy_1 = NonPlayerCharacter('enemy.png', self.width - 40, 400, 50, 50)
+        enemy_1.SPEED *= level_speed
+
+        enemy_2 = NonPlayerCharacter('enemy.png', 20, 200, 50, 50)
+        enemy_2.SPEED *= level_speed
+
         treasure = GameObject('treasure.png', 375, 50, 50, 50)
 
         # main game loop, used to update all gameplay such as movement, checks, and graphics
@@ -81,6 +90,14 @@ class Game:
             enemy_0.move(self.width)
             enemy_0.draw(self.game_screen)
 
+            # move and draw more enemies when we reach higher levels of difficulty
+            if level_speed > 2:
+                enemy_1.move(self.width)
+                enemy_1.draw(self.game_screen)
+            if level_speed > 4:
+                enemy_2.move(self.width)
+                enemy_2.draw(self.game_screen)
+
             # end the game if there is a collision between enemy or treasure
             # close the game if we lose, restart the game loop if we win
             if player_character.detect_collision(enemy_0):
@@ -109,7 +126,7 @@ class Game:
         # break out of game loop and quit if we lose
         if did_win:
             # recursion
-            self.run_game_loop()
+            self.run_game_loop(level_speed + 0.5)
         else:
             return
 
@@ -192,7 +209,7 @@ class NonPlayerCharacter(GameObject):
 pygame.init()
 
 new_game = Game('background.png', SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
-new_game.run_game_loop()
+new_game.run_game_loop(1)
 
 # Load the player image from the file directory
 # player_image = pygame.image.load('player.png')
